@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import pet.beans.Job;
 import pet.beans.Sitter;
 import pet.repository.JobRepository;
 import pet.repository.OwnerRepository;
@@ -71,5 +72,14 @@ public class SitterController {
 		sitterRepo.delete(sitter);
 
 		return viewSitter(model);
+	}
+	@RequestMapping(value = "viewJobs")
+	@GetMapping({ "/viewJobs" })
+	public String viewJobs(Model model) {
+		model.addAttribute("owners", ownerRepo.findAll());
+		model.addAttribute("sitters", sitterRepo.findAll());
+		model.addAttribute("jobs", jobRepo.findAll());
+
+		return "viewJobs";
 	}
 }
